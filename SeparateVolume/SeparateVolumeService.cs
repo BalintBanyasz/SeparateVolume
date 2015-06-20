@@ -16,8 +16,11 @@ namespace SeparateVolume
         public const string KEY_MASTER_VOLUME_LEVEL = "MasterVolumeLevel";
         public const string KEY_MUTE = "Mute";
 
+        public const string DEVICE_NAME = "Realtek High Definition Audio";
+
         private NAudio.CoreAudioApi.MMDeviceEnumerator deviceEnum;
         private NAudio.CoreAudioApi.Interfaces.IMMNotificationClient notifyClient;
+        private NAudio.CoreAudioApi.MMDevice device;
 
         private VolumeStatus previousVolume;
 
@@ -31,6 +34,7 @@ namespace SeparateVolume
             deviceEnum = new NAudio.CoreAudioApi.MMDeviceEnumerator();
             notifyClient = (NAudio.CoreAudioApi.Interfaces.IMMNotificationClient)this;
             deviceEnum.RegisterEndpointNotificationCallback(notifyClient);
+            device = deviceEnum.EnumerateAudioEndPoints(NAudio.CoreAudioApi.DataFlow.Render, NAudio.CoreAudioApi.DeviceState.All).FirstOrDefault(dev => dev.DeviceFriendlyName.Equals(DEVICE_NAME));
 
             previousVolume = GetSavedVolumeStatus();
         }
@@ -113,9 +117,12 @@ namespace SeparateVolume
             if (deviceEnum != null)
             {
                 deviceEnum.UnregisterEndpointNotificationCallback(notifyClient);
-                notifyClient = null;
-                deviceEnum = null;
             }
+
+            notifyClient = null;
+            deviceEnum = null;
+            device = null;
+            previousVolume = null;
         }
 
         public void OnDefaultDeviceChanged(NAudio.CoreAudioApi.DataFlow flow, NAudio.CoreAudioApi.Role role, string defaultDeviceId)
@@ -137,12 +144,9 @@ namespace SeparateVolume
         {
             if (newState == NAudio.CoreAudioApi.DeviceState.Active || newState == NAudio.CoreAudioApi.DeviceState.Unplugged)
             {
-                // Get current volume level
-                NAudio.CoreAudioApi.MMDeviceEnumerator deviceEnum = new NAudio.CoreAudioApi.MMDeviceEnumerator();
-                NAudio.CoreAudioApi.MMDevice device = deviceEnum.EnumerateAudioEndPoints(NAudio.CoreAudioApi.DataFlow.Render, NAudio.CoreAudioApi.DeviceState.All).FirstOrDefault(dev => dev.DeviceFriendlyName.Equals("Realtek High Definition Audio"));
-                
                 if (device != null)
 	            {
+                    // Get current volume level
 		            VolumeStatus currentVolume = new VolumeStatus(device.AudioEndpointVolume.MasterVolumeLevel, device.AudioEndpointVolume.Mute);
 
                     // Restore previous volume level
