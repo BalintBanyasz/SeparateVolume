@@ -31,6 +31,10 @@ namespace SeparateVolume
 
         protected override void OnStart(string[] args)
         {
+#if DEBUG
+            System.Diagnostics.Debugger.Launch();
+#endif
+
             deviceEnum = new NAudio.CoreAudioApi.MMDeviceEnumerator();
             notifyClient = (NAudio.CoreAudioApi.Interfaces.IMMNotificationClient)this;
             deviceEnum.RegisterEndpointNotificationCallback(notifyClient);
