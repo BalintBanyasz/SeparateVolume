@@ -96,10 +96,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.2"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    "Name" = "8:Microsoft .NET Framework 4.6.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.2"
                     }
                 }
             }
@@ -276,7 +276,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Separate Volume"
         "ProductCode" = "8:{27BFC4B5-9CCB-43E9-A188-18F20F2A561A}"
-        "PackageCode" = "8:{BFE4359A-8F9D-4D02-BA64-BB6BDDC808DE}"
+        "PackageCode" = "8:{0F6EFFC4-FA6C-4D52-A060-3785C9CCFFE3}"
         "UpgradeCode" = "8:{2192EFA7-CDBC-4825-945B-437278F80AA1}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -797,7 +797,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_160A72F8265748B3BEBFA59DD40EC503"
             {
-            "SourcePath" = "8:..\\SeparateVolume\\obj\\Debug\\SeparateVolume.exe"
+            "SourcePath" = "8:..\\SeparateVolume\\obj\\Release\\SeparateVolume.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_82283E7361884921B7C5377601D9C9CE"
